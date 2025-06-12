@@ -1,0 +1,144 @@
+/* Reset CSS cơ bản để đảm bảo tính nhất quán trên các trình duyệt */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    min-height: 100vh; /* Đảm bảo body chiếm toàn bộ chiều cao màn hình */
+    display: flex;
+    flex-direction: column; /* Sắp xếp con theo cột */
+    margin: 0; /* Loại bỏ margin mặc định của trình duyệt */
+    padding: 0; /* Loại bỏ padding mặc định */
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #4CAF50;
+    margin: 0;
+    padding: 10px 0;
+    left: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    width: 100%; /* Full chiều rộng */
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.logo {
+    max-width: 100px; /* Kích thước tối đa cho logo */
+    margin-right: 20px; /* Khoảng cách từ logo đến tiêu đề */
+}
+
+.header h1 {
+    font-size: 2em;
+}
+
+
+
+/* Container Chung cho Đăng Nhập và Đăng Ký */
+.auth-container {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    width: 500px;
+    max-width: 90%; /* Giới hạn tối đa 90% để responsive */
+    margin: 80px auto;
+    position: relative;
+    top: 120px;
+}
+
+/* Tiêu đề */
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Nhóm Nhập Liệu */
+.auth-container .input-group {
+    margin-bottom: 15px;
+}
+
+.auth-container .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.auth-container .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Nút Submit */
+.auth-container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50; /* Màu xanh lá */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.auth-container button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Thông Báo */
+.auth-container .message {
+    margin-top: 15px;
+    text-align: center;
+    color: #666;
+}
+
+.auth-container .message a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.auth-container .message a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .header {
+        padding: 10px;
+    }
+
+    .auth-container {
+        width: 90%;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%; /* Full chiều rộng */
+    box-sizing: border-box;
+    position: fixed; /* Cố định footer dưới cùng */
+    bottom: 0;
+    left: 0;
+}
+

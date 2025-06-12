@@ -13,7 +13,7 @@ namespace OGCCinema.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult DangNhap()
         {
             return View();
         }

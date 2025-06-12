@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - OGC Store</title>
+    <link rel="stylesheet" href="~/css/DangNhap.css">
+</head>
+<body>
+    <header class="header">
+        <img src="images/Logo.png" alt="Logo" class="logo"> <!-- Thêm logo -->
+        <h1>OGC Cinema</h1>
+    </header>
+
+   @* <nav class="DanhMuc">
+        <ul>
+            <li><a href="http://127.0.0.1:5500/TrangChu/TrangChu.html">Trang Chủ</a></li>
+            <li><a href="http://127.0.0.1:5500/DangNhap/DangNhap.html">Đăng Nhập</a></li>
+            <li><a href="http://127.0.0.1:5500/DangKy/DangKy.html">Đăng Ký</a></li>
+            <!-- Thêm các mục khác nếu cần -->
+        </ul>
+    </nav>
+    *@
+    <div class="auth-container">
+        <form id="loginForm" action="php/login.php" method="POST">
+            <h2>Đăng Nhập</h2>
+            <div class="input-group">
+                <label for="username">Tên đăng nhập</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Đăng Nhập</button>
+            <p class="message">Bạn chưa có tài khoản? <a href="http://127.0.0.1:5500/DangKy/DangKy.html">Đăng ký ngay</a></p>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 OGC Cinema. All rights reserved.</p>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
+
