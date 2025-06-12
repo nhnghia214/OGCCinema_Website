@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OGCCinema </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/OGCCinema.styles.css" asp-append-version="true" />
+
+    <link href="~/css/Navigation.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<div class="menu">
+
+    <div class="muc"> <a href="@Url.Action("Index", "Reviews")" class="muc-Danhgia"> Trang Chủ </a> </div>
+    <div class="muc"> <a href="@Url.Action("Create", "Orders")" class="muc-Dathang"> Giới thiệu </a> </div>
+
+    <div class="muc">
+        <a href="#" class="muc-Danhmuc"> Danh mục </a>
+        <ul class="sub-menu">
+            <li><a href="@Url.Action("Banhsinhnhat", "Categories")" class="muc-BSN">Bánh sinh nhật</a></li>
+            <li><a href="@Url.Action("Banhngotphap", "Categories")" class="muc-BNP">Bánh ngọt Pháp</a></li>
+            <li><a href="@Url.Action("Banhbonglan", "Categories")" class="muc-BBL">Bánh bông lan</a></li>
+            <li><a href="#">Bánh mì</a></li>
+        </ul>
+    </div>
+
+    <div class="muc"> <a href="#" class="muc-Dondadat"> Đơn đã đặt </a> </div>
+    <div class="muc"> <a href="@Url.Action("Khuyenmai", "Promontions")" class="muc-Bestseller"> Khuyến mãi </a> </div>
+    <div class="muc"> <a href="@Url.Action("Index", "ShoppingCart")" class="muc-Giohang"> Đặt vé </a> </div>
+    <div class="muc"> <a href="@Url.Action("Index", "ShoppingCart")" class="muc-Giohang"> Đặt món ăn </a> </div>
+    <div class="muc"> <a href="@Url.Action("Index", "ShoppingCart")" class="muc-Giohang"> Đánh giá </a> </div>
+</div>

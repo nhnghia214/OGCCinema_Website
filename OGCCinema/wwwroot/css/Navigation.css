@@ -1,0 +1,56 @@
+﻿/* Navigation */
+.menu {
+    background-color: #333;
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.muc {
+    display: inline-block;
+    margin: 0 15px;
+    position: relative;
+}
+
+    .muc a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        display: block;
+        font-size: 1em;
+    }
+
+        .muc a:hover {
+            background-color: #575757;
+            border-radius: 5px;
+        }
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+}
+
+.muc:hover .sub-menu {
+    display: block;
+}
+
+.sub-menu li {
+    list-style: none;
+}
+
+.sub-menu a {
+    color: white;
+    padding: 12px 16px;
+    display: block;
+}
+
+    .sub-menu a:hover {
+        background-color: #575757;
+    }
