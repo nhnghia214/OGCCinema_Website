@@ -3,18 +3,143 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OGCCinema</title>
+    <title>@ViewData["Title"] - OGCCinema </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OGCCinema.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap" rel="stylesheet">
+    <link href="~/css/layout.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
+    <!-- Phần đầu trang -->
+    <div class="phan-dau" id="phan-dau">
+        <div class="thong-tin-lien-he">
+            <img src="~/image/image/logo1.jpg" />
+
+            <div class="so-dien-thoai">
+                <a href="#" class="mang"><i class="fas fa-phone-alt"></i> 0123 456 789 </a>
+            </div>
+            <div class="email">
+                <a href="#" class="mang"><i class="fas fa-envelope"></i> Cakefantasy.nhom3@gmail.com </a>
+            </div>
+        </div>
+        <div class="mang-xa-hoi">
+            <!-- Icon mạng xã hội -->
+            <div class="mangxh">
+                <div class="account">
+                    <a href="#" class="mang" onclick="toggleAccountMenu(event)">
+                        <!-- Khi nngười dùng bấm vào icon sẽ gọi hàm toggleAccountMenu(event) -->
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="sub-account" id="account-menu">
+                        <li> <a href="@Url.Action("Create", "Customers")"> My Account </a></li>
+                        <li> <a href="@Url.Action("Create", "Users")">Đăng ký</a> </li>
+                        <li> <a href="@Url.Action("DangNhap", "Home")">Đăng nhập</a> </li>
+                        <li> <a href="@Url.Action("Logout", "Users")">Đăng xuất </a> </li>
+
+                    </ul>
+
+
+                </div>
+
+                <script src="~/js/home.js"></script>
+
+                <a href="#" class="mang"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="mang"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="mang"><i class="fab fa-instagram"></i></a>
+            </div>
+
+
+        </div>
+    </div>
+
+    <nav>
+
+        @Html.Partial("~/Views/Shared/Navigation.cshtml") <!-- Gọi Partial View cho thanh điều hướng -->
+    </nav>
+    <br />
+
+    <div class="row" style="display: flex; align-items: center;">
+        <input id="txtInput" style="width: 200px; margin-right: 10px;" class="form-control" />
+        <button id="btnSearch" class="btn btn-primary" style="height: 38px; width: 100px;">Tìm kiếm</button>
+    </div>
+
 
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
+    <!-- Phần cuối trang web -->
+    <div class="divider"></div> <!-- Đường kẽ -->
+    <div class="Footer">
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td class="info-container" style="width: 50%; padding: 20px; text-align: right;">
+                    <div class="address">
+                        <h2 style="text-align: right;">Địa chỉ</h2>
+                        <a href="https://www.google.com/maps/place/Khi%E1%BA%BFt+Minh+Bakery+M%E1%BA%ADu+Th%C3%A2n/10.0309996,105.7666661,16z/data=!4m10!1m2!2m1!1zYsOhbmgga2VtIGtoaeG6v3QgbWluaCBj4bqnbiB0aMah!
+                            3m6!1s0x31a0896bba0969a9:0xd0ad4a31a7571b9e!8m2!3d10.0309996!4d105.7756783!15sCiFiw6FuaCBrZW0ga2hp4bq_dCBtaW5oIGPhuqduIHRoxqEiA4gBAVojIiFiw6FuaCBrZW0ga2hp4bq_dCBtaW5oIGPhuqduIHRoxqGSAQZiYWtlcnngAQA!
+                            16s%2Fg%2F11qyfyznkq?entry=ttu&g_ep=EgoyMDI0MDkxOC4xIKXMDSoASAFQAw%3D%3D" target="_blank">
+                            Xem trên Google Maps
+                        </a>
+                    </div>
+
+                    <div class="Chinh-sach">
+                        <h2 style="text-align: right;">Chính sách</h2>
+                        <p> Chính sách và quy định chung </p>
+                        <p> Chính sách giao dịch, thanh toán </p>
+                        <p> Chính sách đổi trả </p>
+                        <p> Chính sách bảo mật </p>
+                        <p> Chính sách vận chuyển </p>
+                    </div>
+                </td>
+                <td style="width: 1px; border-right: 2px solid #4CAF50;"></td> <!-- Đường ngăn cách -->
+                <td style="width: 50%; padding: 20px; text-align: left;">
+                    <div class="shop-info">
+                        <h2 style="text-align: left;">Cửa hàng bánh ngọt Cake Fantasy </h2>
+                        <p> Địa chỉ tên miền: cakefantasy.vn </p>
+                        <p> Tên miền phụ: banhngotfantasy.vn </p>
+                        <p> Tên doanh nghiệp: Cửa hàng Bánh ngọt Cake Fantasy </p>
+                        <p> Quốc gia: Việt Nam </p>
+                        <p> Điện thoại: 0397 419 555 </p>
+                        <p> Ngày cấp: 10/10/2010 </p>
+                        <p> Nơi cấp: Sở Kế hoạch và Đầu tư Tp. Cần Thơ</p> <br />
+                    </div>
+                    <div class="Giaychungnhan">
+                        <img src="~/image/image/giaychungnhan.jpg" style="width:30%" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#btnSearch').on('click', function (event) {
+                event.preventDefault(); // Ngăn chặn reload trang
+                var giatrinhap = $('#txtInput').val();
+
+                //Cho trinh duyet truy cap
+                window.location.href = "/Products/SearchByName?name=" + giatrinhap;
+            });
+        });
+    </script>
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>
