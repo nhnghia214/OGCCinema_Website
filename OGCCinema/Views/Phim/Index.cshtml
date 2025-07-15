@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<OGCCinema.Models.Phim>
+@{
+    ViewData["Title"] = "Danh sách phim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="movie-list">
+    <h2>Danh sách phim</h2>
+    <div class="row">
+        @foreach (var phim in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="~/image/posterphim/@phim.PosterUrl" class="card-img-top" alt="@phim.TenPhim" />
+                    <div class="card-body">
+                        <h5 class="card-title">@phim.TenPhim</h5>
+                        <p class="card-text">@phim.MoTa</p>
+                        <p><strong>Thời lượng:</strong> @phim.ThoiLuong phút</p>
+                        <p><strong>Ngày khởi chiếu:</strong> @phim.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+                        <a href="@Url.Action("Details", "Phim", new { id = phim.Id })" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<link href="~/css/phim.css" rel="stylesheet" />
+@section Scripts {
+    <script src="~/js/phim.js"></script>
+}

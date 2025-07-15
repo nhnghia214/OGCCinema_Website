@@ -1,0 +1,14 @@
+﻿/* wwwroot/css/phim-details.css */
+.movie-details img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.movie-details .btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.movie-details iframe {
+    max-width: 100%;
+}

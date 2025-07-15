@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using OGCCinema.Data;
+using OGCCinema.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<OgccinemaContext>((provider, options) => {
+    IConfiguration config = provider.GetRequiredService<IConfiguration>();
+    string connectionString = config.GetConnectionString("DefaultConnection");
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
 

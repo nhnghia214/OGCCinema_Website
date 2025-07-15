@@ -1,145 +1,239 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿
+<!DOCTYPE html>
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OGCCinema </title>
+    <title>@ViewData["Title"] - OGC Cinema</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/OGCCinema.styles.css" asp-append-version="true" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="~/css/layout.css" rel="stylesheet" />
+    <link href="~/css/Navigation.css" rel="stylesheet" />
+   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
-    <!-- Phần đầu trang -->
-    <div class="phan-dau" id="phan-dau">
-        <div class="thong-tin-lien-he">
-            <img src="~/image/image/logo1.jpg" />
-
-            <div class="so-dien-thoai">
-                <a href="#" class="mang"><i class="fas fa-phone-alt"></i> 0123 456 789 </a>
+    <!-- Header Section -->
+    <header class="cinema-header" id="cinema-header">
+        <div class="header-container">
+            <!-- Logo và thông tin liên hệ -->
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="~/image/ogc-logo.png" alt="OGC Cinema" class="cinema-logo" />
+                    <div class="logo-text">
+                        <h1>OGC Cinema</h1>
+                        <span>Trải nghiệm điện ảnh đỉnh cao</span>
+                    </div>
+                </div>
             </div>
-            <div class="email">
-                <a href="#" class="mang"><i class="fas fa-envelope"></i> Cakefantasy.nhom3@gmail.com </a>
+
+            <!-- Contact Info -->
+            <div class="header-center">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Hotline: 1900 1234</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>ogccinema@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Cần Thơ, Việt Nam</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Account & Social -->
+            <div class="header-right">
+                <div class="user-actions">
+                    <div class="account-menu">
+                        <a href="#" class="account-toggle" onclick="toggleAccountMenu(event)">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Tài khoản</span>
+                        </a>
+                        <ul class="account-dropdown" id="account-menu">
+                            <li><a href="@Url.Action("Profile", "Customers")"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
+                            <li><a href="@Url.Action("Create", "Users")"><i class="fas fa-user-plus"></i> Đăng ký</a></li>
+                            <li><a href="@Url.Action("DangNhap", "Home")"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
+                            <li><a href="@Url.Action("LichSuDatVe", "Booking")"><i class="fas fa-history"></i> Lịch sử đặt vé</a></li>
+                            <li><a href="@Url.Action("Logout", "Users")"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="search-container">
+                        <input type="text" id="txtSearch" placeholder="Tìm phim, rạp..." />
+                        <button id="btnSearch" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="social-links">
+                        <a href="#" class="social-link facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link tiktok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mang-xa-hoi">
-            <!-- Icon mạng xã hội -->
-            <div class="mangxh">
-                <div class="account">
-                    <a href="#" class="mang" onclick="toggleAccountMenu(event)">
-                        <!-- Khi nngười dùng bấm vào icon sẽ gọi hàm toggleAccountMenu(event) -->
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <ul class="sub-account" id="account-menu">
-                        <li> <a href="@Url.Action("Create", "Customers")"> My Account </a></li>
-                        <li> <a href="@Url.Action("Create", "Users")">Đăng ký</a> </li>
-                        <li> <a href="@Url.Action("DangNhap", "Home")">Đăng nhập</a> </li>
-                        <li> <a href="@Url.Action("Logout", "Users")">Đăng xuất </a> </li>
+    </header>
 
-                    </ul>
+    <!-- Navigation -->
+    <nav class="main-navigation">
+        @Html.Partial("~/Views/Shared/Navigation.cshtml")
+    </nav>
 
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
 
+    <!-- Footer -->
+    <footer class="cinema-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Company Info -->
+                <div class="footer-section company-info">
+                    <div class="footer-logo">
+                        <img src="~/image/ogc-logo.png" alt="OGC Cinema" />
+                        <h3>OGC Cinema</h3>
+                    </div>
+                    <p>Hệ thống rạp chiếu phim hiện đại với công nghệ âm thanh và hình ảnh tiên tiến, mang đến trải nghiệm điện ảnh đỉnh cao cho khán giả.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
                 </div>
 
-                <script src="~/js/home.js"></script>
+                <!-- Quick Links -->
+                <div class="footer-section quick-links">
+                    <h4>Liên kết nhanh</h4>
+                    <ul>
+                        <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                        <li><a href="@Url.Action("PhimDangChieu", "Movies")">Phim đang chiếu</a></li>
+                        <li><a href="@Url.Action("Index", "Showtimes")">Lịch chiếu</a></li>
+                        <li><a href="@Url.Action("Index", "Booking")">Đặt vé online</a></li>
+                        <li><a href="@Url.Action("Index", "Promotions")">Khuyến mãi</a></li>
+                    </ul>
+                </div>
 
-                <a href="#" class="mang"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="mang"><i class="fab fa-tiktok"></i></a>
-                <a href="#" class="mang"><i class="fab fa-instagram"></i></a>
+                <!-- Services -->
+                <div class="footer-section services">
+                    <h4>Dịch vụ</h4>
+                    <ul>
+                        <li><a href="@Url.Action("BapNuoc", "Food")">Bắp nước</a></li>
+                        <li><a href="@Url.Action("DoAn", "Food")">Đồ ăn</a></li>
+                        <li><a href="@Url.Action("Index", "Reviews")">Đánh giá phim</a></li>
+                        <li><a href="#">Thuê phòng riêng</a></li>
+                        <li><a href="#">Tổ chức sự kiện</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section contact-info">
+                    <h4>Thông tin liên hệ</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Đại học Cần Thơ, Ninh Kiều, Cần Thơ</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>Hotline: 1900 1234</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>ogccinema@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Giờ mở cửa: 8:00 - 23:00</span>
+                    </div>
+                </div>
             </div>
 
-
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2025 OGC Cinema. Bản quyền thuộc về Nhóm 3 - Đồ án Phần mềm Quản lý Rạp Chiếu Phim</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#">Chính sách bảo mật</a>
+                        <a href="#">Điều khoản sử dụng</a>
+                        <a href="#">Chính sách đổi trả</a>
+                        <a href="#">Hỗ trợ khách hàng</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <nav>
-
-        @Html.Partial("~/Views/Shared/Navigation.cshtml") <!-- Gọi Partial View cho thanh điều hướng -->
-    </nav>
-    <br />
-
-    <div class="row" style="display: flex; align-items: center;">
-        <input id="txtInput" style="width: 200px; margin-right: 10px;" class="form-control" />
-        <button id="btnSearch" class="btn btn-primary" style="height: 38px; width: 100px;">Tìm kiếm</button>
-    </div>
-
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <!-- Phần cuối trang web -->
-    <div class="divider"></div> <!-- Đường kẽ -->
-    <div class="Footer">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <td class="info-container" style="width: 50%; padding: 20px; text-align: right;">
-                    <div class="address">
-                        <h2 style="text-align: right;">Địa chỉ</h2>
-                        <a href="https://www.google.com/maps/place/Khi%E1%BA%BFt+Minh+Bakery+M%E1%BA%ADu+Th%C3%A2n/10.0309996,105.7666661,16z/data=!4m10!1m2!2m1!1zYsOhbmgga2VtIGtoaeG6v3QgbWluaCBj4bqnbiB0aMah!
-                            3m6!1s0x31a0896bba0969a9:0xd0ad4a31a7571b9e!8m2!3d10.0309996!4d105.7756783!15sCiFiw6FuaCBrZW0ga2hp4bq_dCBtaW5oIGPhuqduIHRoxqEiA4gBAVojIiFiw6FuaCBrZW0ga2hp4bq_dCBtaW5oIGPhuqduIHRoxqGSAQZiYWtlcnngAQA!
-                            16s%2Fg%2F11qyfyznkq?entry=ttu&g_ep=EgoyMDI0MDkxOC4xIKXMDSoASAFQAw%3D%3D" target="_blank">
-                            Xem trên Google Maps
-                        </a>
-                    </div>
-
-                    <div class="Chinh-sach">
-                        <h2 style="text-align: right;">Chính sách</h2>
-                        <p> Chính sách và quy định chung </p>
-                        <p> Chính sách giao dịch, thanh toán </p>
-                        <p> Chính sách đổi trả </p>
-                        <p> Chính sách bảo mật </p>
-                        <p> Chính sách vận chuyển </p>
-                    </div>
-                </td>
-                <td style="width: 1px; border-right: 2px solid #4CAF50;"></td> <!-- Đường ngăn cách -->
-                <td style="width: 50%; padding: 20px; text-align: left;">
-                    <div class="shop-info">
-                        <h2 style="text-align: left;">Cửa hàng bánh ngọt Cake Fantasy </h2>
-                        <p> Địa chỉ tên miền: cakefantasy.vn </p>
-                        <p> Tên miền phụ: banhngotfantasy.vn </p>
-                        <p> Tên doanh nghiệp: Cửa hàng Bánh ngọt Cake Fantasy </p>
-                        <p> Quốc gia: Việt Nam </p>
-                        <p> Điện thoại: 0397 419 555 </p>
-                        <p> Ngày cấp: 10/10/2010 </p>
-                        <p> Nơi cấp: Sở Kế hoạch và Đầu tư Tp. Cần Thơ</p> <br />
-                    </div>
-                    <div class="Giaychungnhan">
-                        <img src="~/image/image/giaychungnhan.jpg" style="width:30%" />
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/layout.js"></script>
 
     <script>
+        // Search functionality
         $(document).ready(function () {
             $('#btnSearch').on('click', function (event) {
-                event.preventDefault(); // Ngăn chặn reload trang
-                var giatrinhap = $('#txtInput').val();
+                event.preventDefault();
+                var searchTerm = $('#txtSearch').val().trim();
+                if (searchTerm) {
+                    window.location.href = "/Movies/Search?query=" + encodeURIComponent(searchTerm);
+                }
+            });
 
-                //Cho trinh duyet truy cap
-                window.location.href = "/Products/SearchByName?name=" + giatrinhap;
+            // Enter key search
+            $('#txtSearch').on('keypress', function (e) {
+                if (e.which === 13) {
+                    $('#btnSearch').click();
+                }
+            });
+        });
+
+        // Account menu toggle
+        function toggleAccountMenu(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const menu = document.getElementById('account-menu');
+            menu.classList.toggle('show');
+        }
+
+        // Close account menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('account-menu');
+            if (!event.target.closest('.account-menu')) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
     </script>
 
-
-
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
 </body>
 </html>
