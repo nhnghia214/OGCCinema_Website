@@ -7,3 +7,56 @@
 }
 
 
+
+<div style="margin-top: 30px; display: flex; justify-content: center;">
+    <div id="carousel" style="width: 800px; height: 400px; overflow: hidden; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+        <img id="carousel-image" src="~/image/posterphim/avengers.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 1s;" />
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        const images = [
+            '@Url.Content("~/image/posterphim/avengers.jpg")',
+            '@Url.Content("~/image/posterphim/inception.jpg")',
+
+        ];
+
+        let currentIndex = 0;
+        const imgElement = document.getElementById("carousel-image");
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            imgElement.style.opacity = 0;
+            setTimeout(() => {
+                imgElement.src = images[currentIndex];
+                imgElement.style.opacity = 1;
+            }, 500);
+        }, 5000);
+    </script>
+}
+
+
+<div class="row" style="margin-top: 30px; display: flex; align-items: center;">
+    <input id="txtInput" style="width: 200px; margin-right: 10px;" class="form-control" />
+    <button id="btnSearch" class="btn btn-primary" style="height: 38px; width: 100px;">Tìm kiếm</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#btnSearch').on('click', function (event) {
+            event.preventDefault(); // Ngăn chặn reload trang
+            var giatrinhap = $('#txtInput').val();
+
+            //Cho trinh duyet truy cap
+            window.location.href = "/Products/SearchByName?name=" + giatrinhap;
+        });
+    });
+</script>
+
+
+
+
+
+

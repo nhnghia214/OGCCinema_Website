@@ -1,0 +1,36 @@
+﻿@model OGCCinema.Models.Phim
+
+@{
+    ViewData["Title"] = "Chi tiết phim - " + Model.TenPhim;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="movie-details">
+    <h2>@Model.TenPhim</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="~/image/posterphim/@Model.PosterUrl" class="img-fluid" alt="@Model.TenPhim" />
+        </div>
+        <div class="col-md-8">
+            <p><strong>Mô tả:</strong> @Model.MoTa</p>
+            <p><strong>Đạo diễn:</strong> @Model.DaoDien</p>
+            <p><strong>Diễn viên:</strong> @Model.DienVien</p>
+            <p><strong>Thể loại:</strong> @Model.TheLoaiPhim?.TenTheLoai</p>
+            <p><strong>Định dạng:</strong> @Model.DinhDangPhim?.TenDinhDang</p>
+            <p><strong>Độ tuổi:</strong> @Model.DoTuoi?.TenDoTuoi</p>
+            <p><strong>Thời lượng:</strong> @Model.ThoiLuong phút</p>
+            <p><strong>Ngày khởi chiếu:</strong> @Model.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+            @if (!string.IsNullOrEmpty(Model.TrailerUrl))
+            {
+                <p><strong>Trailer:</strong></p>
+                <iframe width="560" height="315" src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+            }
+            <a href="@Url.Action("Index", "Booking", new { phimId = Model.Id })" class="btn btn-primary">Đặt vé</a>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/phim-details.css" rel="stylesheet" />
+@section Scripts {
+    <script src="~/js/phim-details.js"></script>
+}
