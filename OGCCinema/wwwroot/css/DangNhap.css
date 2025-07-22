@@ -1,24 +1,24 @@
 /* Reset CSS cơ bản để đảm bảo tính nhất quán trên các trình duyệt */
-* {
+/** {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+}*/
 
 /* Body */
-body {
+/*body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     color: #333;
-    min-height: 100vh; /* Đảm bảo body chiếm toàn bộ chiều cao màn hình */
-    display: flex;
-    flex-direction: column; /* Sắp xếp con theo cột */
-    margin: 0; /* Loại bỏ margin mặc định của trình duyệt */
-    padding: 0; /* Loại bỏ padding mặc định */
-}
+    min-height: 100vh;*/ /* Đảm bảo body chiếm toàn bộ chiều cao màn hình */
+    /*display: flex;
+    flex-direction: column;*/ /* Sắp xếp con theo cột */
+    /*margin: 0;*/ /* Loại bỏ margin mặc định của trình duyệt */
+    /*padding: 0;*/ /* Loại bỏ padding mặc định */
+/*}*/
 
 /* Header */
-.header {
+/*.header {
     display: flex;
     align-items: center;
     background-color: #4CAF50;
@@ -28,47 +28,47 @@ body {
     right: 0;
     color: white;
     text-align: center;
-    width: 100%; /* Full chiều rộng */
-    box-sizing: border-box;
+    width: 100%;*/ /* Full chiều rộng */
+    /*box-sizing: border-box;
     position: absolute;
     top: 0;
     z-index: 1;
 }
 
 .logo {
-    max-width: 100px; /* Kích thước tối đa cho logo */
-    margin-right: 20px; /* Khoảng cách từ logo đến tiêu đề */
-}
+    max-width: 100px;*/ /* Kích thước tối đa cho logo */
+    /*margin-right: 20px;*/ /* Khoảng cách từ logo đến tiêu đề */
+/*}
 
 .header h1 {
     font-size: 2em;
-}
+}*/
 
 
 
 /* Container Chung cho Đăng Nhập và Đăng Ký */
-.auth-container {
+/*.auth-container {
     background-color: #fff;
     padding: 40px 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     height: 500px;
     width: 500px;
-    max-width: 90%; /* Giới hạn tối đa 90% để responsive */
-    margin: 80px auto;
+    max-width: 90%;*/ /* Giới hạn tối đa 90% để responsive */
+    /*margin: 80px auto;
     position: relative;
     top: 120px;
-}
+}*/
 
 /* Tiêu đề */
-.auth-container h2 {
+/*.auth-container h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
-}
+}*/
 
 /* Nhóm Nhập Liệu */
-.auth-container .input-group {
+/*.auth-container .input-group {
     margin-bottom: 15px;
 }
 
@@ -83,14 +83,14 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
+}*/
 
 /* Nút Submit */
-.auth-container button[type="submit"] {
+/*.auth-container button[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50; /* Màu xanh lá */
-    color: white;
+    background-color: #4CAF50;*/ /* Màu xanh lá */
+    /*color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -100,10 +100,10 @@ body {
 
 .auth-container button[type="submit"]:hover {
     background-color: #45a049;
-}
+}*/
 
 /* Thông Báo */
-.auth-container .message {
+/*.auth-container .message {
     margin-top: 15px;
     text-align: center;
     color: #666;
@@ -116,10 +116,10 @@ body {
 
 .auth-container .message a:hover {
     text-decoration: underline;
-}
+}*/
 
 /* Responsive Design */
-@media (max-width: 600px) {
+/*@media (max-width: 600px) {
     .header {
         padding: 10px;
     }
@@ -127,18 +127,282 @@ body {
     .auth-container {
         width: 90%;
     }
-}
+}*/
 
 /* Footer */
-footer {
+/*footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 15px 0;
-    width: 100%; /* Full chiều rộng */
-    box-sizing: border-box;
-    position: fixed; /* Cố định footer dưới cùng */
-    bottom: 0;
+    width: 100%;*/ /* Full chiều rộng */
+    /*box-sizing: border-box;
+    position: fixed;*/ /* Cố định footer dưới cùng */
+    /*bottom: 0;
     left: 0;
+}*/
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+.form-container {
+    position: relative;
+}
+
+    .form-container.hidden {
+        display: none;
+    }
+
+.form-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+        font-size: 14px;
+    }
+
+.input-wrapper {
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: color 0.3s ease;
+}
+
+    .password-toggle:hover {
+        color: #667eea;
+    }
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+    .checkbox-group input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #667eea;
+    }
+
+    .checkbox-group label {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 0;
+    }
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .submit-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .submit-btn:hover::before {
+        left: 100%;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+.switch-form {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e5e9;
+}
+
+    .switch-form p {
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+.switch-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+    .switch-btn:hover {
+        color: #764ba2;
+    }
+
+.error-message {
+    background: #fee;
+    color: #c33;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid #c33;
+}
+
+.success-message {
+    background: #efe;
+    color: #393;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid #393;
+}
+
+.password-requirements {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 2px;
+}
+
+    .requirement.valid {
+        color: #28a745;
+    }
+
+    .requirement.invalid {
+        color: #dc3545;
+    }
+
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    .form-title {
+        font-size: 24px;
+    }
+}
+/*css phần quên mật khẩu*/
+.forgot-password {
+    margin-top: 10px;
+    text-align: right;
+}
+
+    .forgot-password a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
 

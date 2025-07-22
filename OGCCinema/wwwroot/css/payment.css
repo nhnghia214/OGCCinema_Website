@@ -1,0 +1,214 @@
+﻿/* wwwroot/css/payment.css */
+
+.payment-page {
+    padding: 2rem 0;
+}
+
+    .payment-page h2 {
+        color: #2c3e50;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+/* Payment Method Section */
+.form-check {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+    .form-check:hover {
+        border-color: #007bff;
+        background-color: #f8f9fa;
+    }
+
+.form-check-input:checked + .form-check-label {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.form-check-label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+    .form-check-label i {
+        margin-right: 0.5rem;
+        width: 20px;
+    }
+
+/* Cart Summary */
+.cart-summary {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+    .cart-summary h5 {
+        color: #495057;
+        margin-bottom: 1rem;
+    }
+
+.total-amount {
+    font-size: 1.2rem;
+    color: #28a745;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #28a745;
+}
+
+/* QR Code Section */
+#qr-code-section {
+    margin-top: 2rem;
+}
+
+    #qr-code-section .card {
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    #qr-code-section .card-header {
+        background-color: #007bff;
+        color: white;
+        border-bottom: none;
+    }
+
+        #qr-code-section .card-header h5 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+#qr-code-container {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+#qr-code-image {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    background-color: white;
+    padding: 10px;
+}
+
+.payment-info {
+    background-color: #e9ecef;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+}
+
+    .payment-info p {
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+    }
+
+.payment-status {
+    margin-top: 1rem;
+}
+
+    .payment-status h6 {
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+
+/* Success/Cancel Pages */
+.payment-success-page,
+.payment-cancel-page {
+    padding: 3rem 0;
+}
+
+    .payment-success-page .card,
+    .payment-cancel-page .card {
+        border: none;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+    }
+
+.order-info {
+    margin: 2rem 0;
+}
+
+    .order-info .alert {
+        font-size: 1.1rem;
+        margin: 1rem 0;
+    }
+
+.action-buttons {
+    margin-top: 2rem;
+}
+
+    .action-buttons .btn {
+        margin: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+/* Loading Overlay */
+#loading-overlay {
+    backdrop-filter: blur(5px);
+}
+
+    #loading-overlay .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border-width: 0.4em;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-page {
+        padding: 1rem 0;
+    }
+
+    #qr-code-section .col-md-6 {
+        margin-bottom: 1rem;
+    }
+
+    .action-buttons .btn {
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .cart-summary {
+        padding: 1rem;
+    }
+
+    .total-amount {
+        font-size: 1.1rem;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#qr-code-section {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Button Styles */
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+.btn i {
+    margin-right: 0.5

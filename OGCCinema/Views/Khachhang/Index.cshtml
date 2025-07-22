@@ -1,0 +1,42 @@
+﻿@model OGCCinema.Models.Khachhang
+@{
+    ViewData["Title"] = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thông tin cá nhân</h2>
+
+@if (ViewBag.ThongBao != null)
+{
+    <div class="alert alert-success">@ViewBag.ThongBao</div>
+}
+
+<form asp-action="Update" method="post">
+    <div>
+        <label>Họ tên</label>
+        <input type="text" name="HoTen" value="@Model.HoTen" class="form-control" />
+    </div>
+
+    <div>
+        <label>Tuổi</label>
+        <input type="number" name="Tuoi" value="@Model.Tuoi" class="form-control" />
+    </div>
+
+    <div>
+        <label>Địa chỉ</label>
+        <input type="text" name="DiaChi" value="@Model.DiaChi" class="form-control" />
+    </div>
+
+    <div>
+        <label>SĐT</label>
+        <input type="text" name="Sdt" value="@Model.Sdt" class="form-control" />
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input type="email" name="Email" value="@Model.Email" class="form-control" />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Xác nhận cập nhật</button>
+</form>

@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Thành Công</title>
+    <style>
+        .success-container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .success-icon {
+            font-size: 50px;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .success-title {
+            font-size: 24px;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .bill-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .bill-header {
+            margin-bottom: 15px;
+        }
+
+        .bill-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .bill-items {
+            margin-bottom: 15px;
+        }
+
+        .bill-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .item-name {
+            font-weight: bold;
+        }
+
+        .item-quantity {
+            color: #666;
+        }
+
+        .item-price {
+            font-weight: bold;
+        }
+
+        .bill-total {
+            margin-top: 10px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+        .total-final {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .qr-code {
+            margin-top: 20px;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-print {
+            background: #6c757d;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: #fff;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    @model dynamic
+
+    @{
+        ViewData["Title"] = "Thanh Toán Thành Công";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        <h1 class="success-title">Thanh Toán Thành Công.</h1>
+        <p class="success-message"> Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi. Quý khách hàng vui lòng chụp lại mã QR </p>
+
+        @if (!string.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div class="error-message">@ViewBag.Error</div>
+        }
+        else
+        {
+            <div class="bill-container">
+                <div class="bill-header">
+                    <h2 class="bill-title"> HÓA ĐƠN THANH TOÁN </h2>
+                    <div class="bill-info">
+                        <span>Mã đơn hàng: <strong>@(ViewBag.OrderCode ?? "N/A")</strong></span>
+                        <span>Ngày: <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong></span>
+                    </div>
+                    <div class="bill-info">
+                        <span>Giờ: <strong>@DateTime.Now.ToString("HH:mm")</strong></span>
+                        <span>Phương thức: <strong>BIDV</strong></span>
+                    </div>
+                </div>
+
+                <div class="bill-items">
+                    @{
+                        var items = ViewBag.Items as List<OGCCinema.Models.CthdMonan>;
+                        if (items != null && items.Count > 0)
+                        {
+                            foreach (var item in items)
+                            {
+                                var thanhTien = (item.Gia ?? 0) * item.SoLuong;
+                                <div class="bill-item">
+                                    <div>
+                                        <div class="item-name">@(item.TenMonAn ?? "Không xác định")</div>
+                                        <div class="item-quantity">SL: @item.SoLuong</div>
+                                    </div>
+                                    <div class="item-price">@thanhTien.ToString("N0")đ</div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>Không có thông tin chi tiết đơn hàng.</p>
+                        }
+                    }
+                </div>
+
+                <div class="bill-total">
+                    <div class="total-row total-final">
+                        <span>Tổng cộng:</span>
+                        <span>@(ViewBag.TotalAmount?.ToString("N0") ?? "0")đ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hiển thị mã QR -->
+            @if (!string.IsNullOrEmpty(ViewBag.QRCodeImage))
+            {
+                <div class="qr-code">
+                    <h3>Mã QR Đơn Hàng</h3>
+                    <img src="@ViewBag.QRCodeImage" alt="QR Code" style="max-width: 200px; max-height: 200px;" />
+                </div>
+            }
+        }
+
+        <div class="action-buttons">
+            <button class="btn btn-print" onclick="printBill()">In hóa đơn</button>
+            <a href="/" class="btn btn-primary">Về trang chủ</a>
+        </div>
+    </div>
+
+    <link href="~/css/PaymentSuccess.css" rel="stylesheet" />
+    <script>
+        function printBill() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

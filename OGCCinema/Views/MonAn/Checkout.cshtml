@@ -1,0 +1,61 @@
+﻿@* @model dynamic
+
+@{
+    ViewData["Title"] = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container cart-page">
+    <h2>Thanh toán</h2>
+    <div id="cart-items" class="mb-4">
+        <!-- Danh sách món ăn sẽ được render bằng JavaScript -->
+    </div>
+    <div class="cart-footer">
+        <h4>Tổng tiền: <span id="cart-total">0 VNĐ</span></h4>
+        <div class="payment-methods">
+            <h5>Phương thức thanh toán:</h5>
+            <select id="payment-method" class="form-control mb-3">
+                <option value="MOMO">MOMO</option>
+                <option value="BIDV">BIDV</option>
+            </select>
+            <button id="pay-button" class="btn btn-success">Thanh toán</button>
+        </div>
+        <div id="payment-qr" class="mt-3" style="display: none;">
+            <img id="qr-code" src="" alt="QR Code" />
+            <p>Quét mã QR bằng ứng dụng MOMO hoặc BIDV để thanh toán</p>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/cart.css" rel="stylesheet" />
+@section Scripts {
+    <script src="~/js/cart.js"></script>
+} *@
+
+                @model dynamic
+
+@{
+    ViewData["Title"] = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container cart-page">
+    <h2>Thanh toán</h2>
+    <div id="cart-items" class="mb-4"></div>
+    <div class="cart-footer">
+        <h4>Tổng tiền: <span id="cart-total">0 VNĐ</span></h4>
+        <div class="payment-methods">
+            <h5>Phương thức thanh toán:</h5>
+            <select id="payment-method" class="form-control mb-3">
+                <option value="MOMO">MOMO</option>
+                <option value="BIDV">BIDV</option>
+            </select>
+            <button id="pay-button" class="btn btn-success">Thanh toán</button>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/cart.css" rel="stylesheet" />
+@section Scripts {
+    <script src="~/js/cart.js"></script>
+}
