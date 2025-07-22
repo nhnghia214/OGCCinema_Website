@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OGCCinema.Models.Monan>
+
+@{
+    ViewData["Title"] = "Danh sách dịch vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="service-list">
+    <h2>Danh sách dịch vụ</h2>
+    @foreach (var group in Model.GroupBy(m => m.IdloaiMonAnNavigation.TenLoai))
+    {
+        <h3 id="@group.Key.Replace(" ", "")">@group.Key</h3>
+        <div class="row">
+            @foreach (var mon in group)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="~/image/dichvu/@System.IO.Path.GetFileName(mon.Anh)" class="card-img-top" alt="@mon.TenMonAn" />
+                        <div class="card-body">
+                            <h5 class="card-title">@mon.TenMonAn</h5>
+                            <p class="card-text">@mon.MoTa</p>
+                            <p><strong>Giá:</strong> @String.Format("{0:N0}", mon.Gia) VNĐ</p>
+                            <button class="btn btn-primary add-to-cart" data-id="@mon.Id" data-name="@mon.TenMonAn" data-price="@mon.Gia">Thêm giỏ hàng</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<div class="cart-summary fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-box">
+                    <span id="cart-total">Tổng tiền: 0 VNĐ</span>
+                    <a href="@Url.Action("Checkout", "MonAn")" target="_blank" class="btn btn-success float-end">Thanh toán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/monan.css" rel="stylesheet" />
+@section Scripts {
+    <script src="~/js/monan.js"></script>
+}
+
+
+    

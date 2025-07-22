@@ -1,0 +1,35 @@
+﻿@* @model dynamic
+
+<p>QR URL: @ViewBag.qrCode</p>
+<p>Checkout URL: <a href="@ViewBag.checkoutUrl">vào đây</a></p>
+
+<div class="container">
+    <h2>Thanh Toán QR</h2>
+    @if (!string.IsNullOrEmpty(Model.PaymentUrl))
+    {
+        <p>Vui lòng quét mã QR dưới đây để thanh toán:</p>
+        <img src="@Model.PaymentUrl" alt="Mã QR Thanh Toán" style="max-width: 300px;" />
+        //<p>Hoặc nhấp <a href="@Model.PaymentUrl" target="_blank">vào đây</a> để thanh toán trực tiếp.</p>
+        <p>Hoặc nhấp <a href="https://pay.payos.vn/web/9cd1b86437ff4b0fba36ce8aaa93aff2/" target="_blank">vào đây</a> để thanh toán trực tiếp.</p>
+    }
+    else
+    {
+        <p>Không thể tạo mã QR. Vui lòng thử lại.</p>
+    }
+</div> *@
+
+@model dynamic
+
+<div class="container">
+    <h2>Thanh Toán QR</h2>
+    @if (!string.IsNullOrEmpty(Model.PaymentUrl))
+    {
+        <p>Vui lòng quét mã QR dưới đây để thanh toán:</p>
+        <img src="@Model.PaymentUrl" alt="Mã QR Thanh Toán" style="max-width: 300px;" />
+        <p>Nếu lỗi hiển thị, hãy nhấp <a href="@Model.PaymentUrl" target="_blank">vào đây</a> để thanh toán trực tiếp.</p>
+    }
+    else
+    {
+        <p>Không thể tạo mã QR. Vui lòng thử lại.</p>
+    }
+</div>

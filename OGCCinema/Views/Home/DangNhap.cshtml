@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<!DOCTYPE html>
+@* <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
         <h1>OGC Cinema</h1>
     </header>
 
-   @* <nav class="DanhMuc">
+   <nav class="DanhMuc">
         <ul>
             <li><a href="http://127.0.0.1:5500/TrangChu/TrangChu.html">Trang Chủ</a></li>
             <li><a href="http://127.0.0.1:5500/DangNhap/DangNhap.html">Đăng Nhập</a></li>
@@ -24,7 +24,7 @@
             <!-- Thêm các mục khác nếu cần -->
         </ul>
     </nav>
-    *@
+
     <div class="auth-container">
         <form id="loginForm" action="php/login.php" method="POST">
             <h2>Đăng Nhập</h2>
@@ -46,6 +46,338 @@
     </footer>
 
     <script src="js/scripts.js"></script>
+</body>
+</html> *@
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký & Đăng Nhập</title>
+    <link href="~/css/dangnhap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <!-- Form Đăng Ký -->
+        <div id="registerForm" class="form-container">
+            <h2 class="form-title">Đăng Ký Tài Khoản</h2>
+            <div id="registerMessage"></div>
+            
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-username">Tên đăng nhập</label>
+                    <input type="text" id="reg-username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-password">Mật khẩu</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="reg-password" name="password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('reg-password')">
+                            👁️
+                        </button>
+                    </div>
+                    <div class="password-requirements">
+                        <div class="requirement" id="length-req">
+                            <span>✓</span> Ít nhất 8 ký tự
+                        </div>
+                        <div class="requirement" id="letter-req">
+                            <span>✓</span> Có chữ cái
+                        </div>
+                        <div class="requirement" id="number-req">
+                            <span>✓</span> Có số
+                        </div>
+                        <div class="requirement" id="special-req">
+                            <span>✓</span> Có ký tự đặc biệt
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-confirm-password">Xác nhận mật khẩu</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="reg-confirm-password" name="confirmPassword" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('reg-confirm-password')">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="show-passwords" onchange="togglePasswordsVisibility()">
+                    <label for="show-passwords">Hiện mật khẩu</label>
+                </div>
+
+                <button type="submit" class="submit-btn">Đăng Ký</button>
+            </form>
+
+            <div class="switch-form">
+                <p>Đã có tài khoản?</p>
+                <button type="button" class="switch-btn" onclick="showLoginForm()">Đăng Nhập</button>
+            </div>
+        </div>
+
+        <!-- Form Đăng Nhập -->
+        <div id="loginForm" class="form-container hidden">
+            <h2 class="form-title">Đăng Nhập</h2>
+            <div id="loginMessage"></div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Tên đăng nhập</label>
+                    <input type="text" id="login-username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Mật khẩu</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="login-password" name="password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="#" onclick="submitForgotPassword()">Quên mật khẩu?</a>
+                </div>
+
+                <button type="submit" class="submit-btn">Đăng Nhập</button>
+            </form>
+
+            <div class="switch-form">
+                <p>Chưa có tài khoản?</p>
+                <button type="button" class="switch-btn" onclick="showRegisterForm()">Đăng Ký</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chuyển đổi giữa form đăng ký và đăng nhập
+        function showLoginForm() {
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+        }
+
+        // Toggle hiện/ẩn mật khẩu
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+
+        // Toggle hiện/ẩn tất cả mật khẩu trong form đăng ký
+        function togglePasswordsVisibility() {
+            const checkbox = document.getElementById('show-passwords');
+            const passwordInputs = [
+                document.getElementById('reg-password'),
+                document.getElementById('reg-confirm-password')
+            ];
+            
+            passwordInputs.forEach(input => {
+                if (checkbox.checked) {
+                    input.type = 'text';
+                    input.nextElementSibling.textContent = '🙈';
+                } else {
+                    input.type = 'password';
+                    input.nextElementSibling.textContent = '👁️';
+                }
+            });
+        }
+
+        // Kiểm tra độ mạnh mật khẩu
+        function checkPasswordStrength(password) {
+            const requirements = {
+                length: password.length >= 8,
+                letter: /[a-zA-Z]/.test(password),
+                number: /\d/.test(password),
+                special: /[!#$%^&*(),.?":{}|<>]/.test(password)
+            };
+
+            // Cập nhật UI
+            updateRequirement('length-req', requirements.length);
+            updateRequirement('letter-req', requirements.letter);
+            updateRequirement('number-req', requirements.number);
+            updateRequirement('special-req', requirements.special);
+
+            return Object.values(requirements).every(req => req);
+        }
+
+        function updateRequirement(id, isValid) {
+            const element = document.getElementById(id);
+            if (isValid) {
+                element.classList.add('valid');
+                element.classList.remove('invalid');
+            } else {
+                element.classList.add('invalid');
+                element.classList.remove('valid');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('reg-password').addEventListener('input', function(e) {
+            checkPasswordStrength(e.target.value);
+        });
+
+        // Xử lý form đăng ký
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            
+            // Kiểm tra validation
+            if (!checkPasswordStrength(password)) {
+                showMessage('registerMessage', 'Mật khẩu không đáp ứng yêu cầu!', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage('registerMessage', 'Mật khẩu xác nhận không khớp!', 'error');
+                return;
+            }
+            
+            // Gửi request đăng ký (giả lập)
+            registerUser(username, password);
+        });
+
+        // Xử lý form đăng nhập
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Gửi request đăng nhập (giả lập)
+            loginUser(username, password);
+        });
+
+        // Hàm giả lập đăng ký
+                function registerUser(username, password) {
+            showMessage('registerMessage', 'Đang xử lý...', 'info');
+
+            fetch('/Tkkhachhang/RegisterAjax', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password, confirmPassword: password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage('registerMessage', data.message, 'success');
+                    setTimeout(() => {
+                        showLoginForm();
+                        document.getElementById('login-username').value = username;
+                    }, 2000);
+                } else {
+                    showMessage('registerMessage', data.message, 'error');
+                }
+            });
+        }
+
+
+        // Hàm giả lập đăng nhập
+               function loginUser(username, password) {
+            showMessage('loginMessage', 'Đang đăng nhập...', 'info');
+
+            fetch('/Tkkhachhang/LoginAjax', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage('loginMessage', data.message, 'success');
+                    setTimeout(() => {
+                        window.location.href = '/Home/TrangChu';
+                    }, 1500);
+                } else {
+                    showMessage('loginMessage', data.message, 'error');
+                }
+            });
+        }
+
+
+        // Hàm hiển thị thông báo
+        function showMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.className = type === 'error' ? 'error-message' : 
+                               type === 'success' ? 'success-message' : 
+                               'info-message';
+            element.textContent = message;
+            element.style.display = 'block';
+            
+            // Tự động ẩn sau 5 giây
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+
+        //hàm quên mật khẩu
+                   function submitForgotPassword() {
+            const username = document.getElementById("login-username").value;
+            if (!username) {
+                alert("Vui lòng nhập tên đăng nhập trước khi thực hiện quên mật khẩu.");
+                return;
+            }
+            window.location.href = '/Tkkhachhang/QuenMatKhau?username=' + encodeURIComponent(username);
+        }
+
+
+        /* 
+        ===== HƯỚNG DẪN TÍCH HỢP VỚI ASP.NET CORE MVC =====
+        
+        1. Tạo Models:
+           - TkKhachHang.cs
+           - KhachHang.cs
+           - RegisterViewModel.cs
+           - LoginViewModel.cs
+
+        2. Tạo Controller: AccountController.cs
+
+        3. Tạo Views:
+           - Account/Register.cshtml
+           - Account/Login.cshtml
+
+        4. Cấu hình trong Program.cs:
+           - Entity Framework
+           - Authentication
+           - Authorization
+
+        5. Thay thế các hàm JavaScript registerUser() và loginUser() 
+           bằng AJAX calls đến Controller actions.
+
+        Chi tiết code sẽ được cung cấp trong phần tiếp theo.
+        */
+    </script>
 </body>
 </html>
 

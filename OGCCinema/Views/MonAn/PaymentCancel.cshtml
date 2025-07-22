@@ -1,0 +1,57 @@
+﻿@* Views/MonAn/PaymentCancel.cshtml *@
+@{
+    ViewData["Title"] = "Thanh toán đã hủy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container payment-cancel-page">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="cancel-icon mb-4">
+                        <i class="fas fa-times-circle text-warning" style="font-size: 4rem;"></i>
+                    </div>
+
+                    <h2 class="text-warning mb-3">Thanh toán đã bị hủy</h2>
+
+                    <div class="order-info">
+                        <p class="lead">Giao dịch chưa được hoàn tất</p>
+                        <div class="alert alert-warning">
+                            <strong>Mã đơn hàng:</strong> @ViewBag.OrderCode
+                        </div>
+                        <p>@ViewBag.Message</p>
+                        <p>Bạn có thể thử lại thanh toán hoặc chọn phương thức khác.</p>
+                    </div>
+
+                    <div class="action-buttons mt-4">
+                        <a href="@Url.Action("Payment", "MonAn")" class="btn btn-primary btn-lg">
+                            <i class="fas fa-redo"></i> Thử lại thanh toán
+                        </a>
+                        <a href="@Url.Action("Checkout", "MonAn")" class="btn btn-secondary btn-lg ms-2">
+                            <i class="fas fa-shopping-cart"></i> Về giỏ hàng
+                        </a>
+                        <a href="@Url.Action("Index", "MonAn")" class="btn btn-outline-secondary btn-lg ms-2">
+                            <i class="fas fa-home"></i> Về trang chủ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<script>
+    // Auto close this window after 5 seconds if it's a popup
+    if (window.opener) {
+        setTimeout(() => {
+            window.close();
+            // Signal parent window about cancelled payment
+            if (window.opener && !window.opener.closed) {
+                window.opener.postMessage({ type: 'payment_cancelled', orderCode: '@ViewBag.OrderCode' }, '*');
+            }
+        }, 5000);
+    }
+</script>

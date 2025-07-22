@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Phương thức thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Chọn phương thức thanh toán</h2>
+    <form id="paymentForm" method="post" action="/MonAn/CreatePayment">
+        <div>
+            <label><input type="radio" name="paymentMethod" value="BIDV" required /> BIDV</label>
+            <label><input type="radio" name="paymentMethod" value="MoMo" /> MoMo</label>
+        </div>
+        <input type="hidden" name="cartData" id="cartDataField" />
+        <button type="submit" class="btn btn-primary mt-2">Xác nhận thanh toán</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('payment-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const paymentMethod = formData.get("paymentMethod");
+        const cart = localStorage.getItem("cart"); // <-- đã có sẵn giỏ hàng?
+
+        if (!cart) {
+            alert("Giỏ hàng không tồn tại trong localStorage.");
+            return;
+        }
+
+        // Lưu lại để trang PaymentQR dùng
+        localStorage.setItem("paymentMethod", paymentMethod);
+
+        // Điều hướng qua trang thanh toán QR
+        window.location.href = '/MonAn/PaymentQR';
+    });
+</script>
+
