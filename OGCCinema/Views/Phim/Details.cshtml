@@ -1,36 +1,136 @@
 ﻿@model OGCCinema.Models.Phim
 
+
+
 @{
+    ViewData["PhimID"] = Model.Id;
     ViewData["Title"] = "Chi tiết phim - " + Model.TenPhim;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="movie-details">
     <h2>@Model.TenPhim</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <img src="~/image/posterphim/@Model.PosterUrl" class="img-fluid" alt="@Model.TenPhim" />
+    <div class="row d-flex align-items-stretch">
+        <!-- Cột trái -->
+        <div class="col-md-4 d-flex flex-column justify-content-between">
+            <div class="poster-wrapper">
+                <img src="~/image/posterphim/@Model.PosterUrl" class="poster-img" alt="@Model.TenPhim" />
+            </div>
+            <a href="@Url.Action("Index", "Booking", new { phimId = Model.Id })" class="btn btn-primary booking-button">Đặt vé</a>
         </div>
+
+        <!-- Cột phải -->
         <div class="col-md-8">
-            <p><strong>Mô tả:</strong> @Model.MoTa</p>
-            <p><strong>Đạo diễn:</strong> @Model.DaoDien</p>
-            <p><strong>Diễn viên:</strong> @Model.DienVien</p>
-            <p><strong>Thể loại:</strong> @Model.TheLoaiPhim?.TenTheLoai</p>
-            <p><strong>Định dạng:</strong> @Model.DinhDangPhim?.TenDinhDang</p>
-            <p><strong>Độ tuổi:</strong> @Model.DoTuoi?.TenDoTuoi</p>
-            <p><strong>Thời lượng:</strong> @Model.ThoiLuong phút</p>
-            <p><strong>Ngày khởi chiếu:</strong> @Model.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+            <p><i class="fa-solid fa-align-left icon-gold"></i> <strong>Mô tả:</strong> @Model.MoTa</p>
+            <p><i class="fa-solid fa-video icon-gold"></i> <strong>Đạo diễn:</strong> @Model.DaoDien</p>
+            <p><i class="fa-solid fa-users icon-gold"></i> <strong>Diễn viên:</strong> @Model.DienVien</p>
+            <p><i class="fa-solid fa-film icon-gold"></i> <strong>Thể loại:</strong> @Model.TheLoaiPhim?.TenTheLoai</p>
+            <p><i class="fa-solid fa-clapperboard icon-gold"></i> <strong>Định dạng:</strong> @Model.DinhDangPhim?.TenDinhDang</p>
+            <p><i class="fa-solid fa-child icon-gold"></i> <strong>Độ tuổi:</strong> @Model.DoTuoi?.TenDoTuoi</p>
+            <p><i class="fa-solid fa-clock icon-gold"></i> <strong>Thời lượng:</strong> @Model.ThoiLuong phút</p>
+            <p><i class="fa-solid fa-calendar-days icon-gold"></i> <strong>Ngày khởi chiếu:</strong> @Model.NgayKhoiChieu.ToString("dd/MM/yyyy")</p>
+
             @if (!string.IsNullOrEmpty(Model.TrailerUrl))
             {
                 <p><strong>Trailer:</strong></p>
-                <iframe width="560" height="315" src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+                <iframe width="460" height="300" class="trailer-frame" src="~/trailer/@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
             }
-            <a href="@Url.Action("Index", "Booking", new { phimId = Model.Id })" class="btn btn-primary">Đặt vé</a>
         </div>
     </div>
 </div>
 
-<link href="~/css/phim-details.css" rel="stylesheet" />
+<!-- Phần đánh giá phim -->
+<div class="review-section mt-5">
+    <h4>Đánh giá phim</h4>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+    <form asp-action="AddReview" asp-controller="Phim" method="post">
+        <input type="hidden" name="PhimID" value="@Model.Id" />
+
+        <!-- Rating sao -->
+        <div class="mb-3">
+            <label>Chọn đánh giá:</label>
+            <div class="star-rating">
+                <input type="hidden" id="Rating" name="Rating" value="@(ViewBag.PendingReview != null ? ViewBag.PendingReview.Rating : 0)" />
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+        </div>
+
+        <!-- Nội dung -->
+        <div class="mb-3">
+            <label for="NoiDung">Nội dung:</label>
+            <textarea class="form-control" id="NoiDung" name="NoiDung" rows="3" required>
+                @(ViewBag.PendingReview != null ? ViewBag.PendingReview["NoiDung"] : "")
+            </textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+    </form>
+</div>
+
+<!-- Phần đánh giá gần đây -->
+<div class="recent-reviews mt-5">
+    <h4>Đánh giá gần đây</h4>
+    @if (Model.Danhgiaphims != null && Model.Danhgiaphims.Any())
+    {
+        @foreach (var review in Model.Danhgiaphims.Where(d => d.ParentId == null).OrderByDescending(d => d.NgayTao))
+        {
+            <div class="review-item mb-3">
+                <div class="d-flex align-items-start">
+                    <img src="~/image/anhkhachhang/iconnguoi.png" class="review-avatar rounded-circle me-3" alt="Avatar" />
+                    <div class="review-content">
+                        <strong>@(review.KhachHang?.HoTen ?? review.KhachHang?.Username ?? "Khách hàng ẩn danh")</strong>
+                        <small class="text-muted">@review.NgayTao.ToString("dd/MM/yyyy HH:mm")</small>
+                        <p>
+                            @if (review.DiemDanhGia.HasValue)
+                            {
+                                <span class="review-rating">@string.Join("", Enumerable.Repeat("★", review.DiemDanhGia.Value))</span>
+                            }
+                            @review.NoiDung
+                        </p>
+                        @if (User.Identity.IsAuthenticated && Context.Session.GetString("UserAuthenticated") == "true" && review.ParentId == null)
+                        {
+                            <a href="javascript:void(0)" class="reply-link text-primary me-2" data-review-id="@review.Id">Phản hồi</a>
+                            <form asp-action="ReplyReview" asp-controller="Phim" method="post" class="reply-form mt-2" id="reply-form-@review.Id" style="display: none;">
+                                <input type="hidden" name="PhimID" value="@Model.Id" />
+                                <input type="hidden" name="ParentID" value="@review.Id" />
+                                <textarea class="form-control mb-2" name="NoiDung" rows="2" placeholder="Viết câu trả lời..."></textarea>
+                                <button type="submit" class="btn btn-sm btn-primary">Gửi</button>
+                                <a href="javascript:void(0)" class="cancel-reply text-secondary ms-2">Hủy</a>
+                            </form>
+                        }
+                        @if (review.Replies != null && review.Replies.Any())
+                        {
+                            <div class="replies mt-3">
+                                @foreach (var reply in review.Replies.OrderByDescending(r => r.NgayTao))
+                                {
+                                    @await Html.PartialAsync("_ReviewPartial", reply)
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Chưa có đánh giá nào cho phim này.</p>
+    }
+</div>
+
 @section Scripts {
+   
     <script src="~/js/phim-details.js"></script>
 }
+
+
+
+
+<link href="~/css/phim-details.css" rel="stylesheet" />

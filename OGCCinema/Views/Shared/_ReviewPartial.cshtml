@@ -1,0 +1,32 @@
+﻿@model OGCCinema.Models_Old.Danhgiaphim
+
+<div class="reply-item ms-5 mb-2">
+    <div class="d-flex align-items-start">
+        <img src="~/image/anhkhachhang/iconnguoi.png" class="review-avatar rounded-circle me-3" alt="Avatar" />
+        <div class="reply-content">
+            <strong>@(Model.KhachHang?.HoTen ?? Model.KhachHang?.Username ?? "Khách hàng ẩn danh")</strong>
+            <small class="text-muted">@Model.NgayTao.ToString("dd/MM/yyyy HH:mm")</small>
+            <p>@Model.NoiDung</p>
+            @if (User.Identity.IsAuthenticated && Context.Session.GetString("UserAuthenticated") == "true")
+            {
+                <a href="javascript:void(0)" class="reply-link text-primary me-2" data-review-id="@Model.Id">Phản hồi</a>
+                <form asp-action="ReplyReview" asp-controller="Phim" method="post" class="reply-form mt-2" id="reply-form-@Model.Id" style="display: none;">
+                    <input type="hidden" name="PhimID" value="@ViewData["PhimID"]" />
+                    <input type="hidden" name="ParentID" value="@Model.Id" />
+                    <textarea class="form-control mb-2" name="NoiDung" rows="2" placeholder="Viết câu trả lời..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-primary">Gửi</button>
+                    <a href="javascript:void(0)" class="cancel-reply text-secondary ms-2">Hủy</a>
+                </form>
+            }
+            @if (Model.Replies != null && Model.Replies.Any())
+            {
+                <div class="replies mt-3">
+                    @foreach (var subReply in Model.Replies.OrderByDescending(r => r.NgayTao))
+                    {
+                        @await Html.PartialAsync("_ReviewPartial", subReply)
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
