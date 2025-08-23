@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OGCCinema.Models_Old;
+using System;
 using System.Collections.Generic;
 
 namespace OGCCinema.Models;
@@ -40,4 +41,5 @@ public partial class Phim
     public Dinhdangphim DinhDangPhim { get; set; }
     public Dotuoi DoTuoi { get; set; }
     public virtual ICollection<Lichchieu> Lichchieus { get; set; } = new List<Lichchieu>();
+    public ICollection<Danhgiaphim> Danhgiaphims { get; set; } = new List<Danhgiaphim>();
 }

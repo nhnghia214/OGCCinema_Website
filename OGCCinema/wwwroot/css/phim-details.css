@@ -1,14 +1,367 @@
-﻿/* wwwroot/css/phim-details.css */
-.movie-details img {
-    max-width: 100%;
+﻿/* Tổng container căn đều chiều cao */
+/*.row {
+    align-items: stretch;
+}*/
+
+/* Poster chiếm phần còn lại */
+/*.poster-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}*/
+
+/* Nút "Đặt vé" lớn, full width */
+/*.booking-button {
+    width: 100%;
+    font-size: 2rem;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.booking-button:hover {
+    background-color: #0056b3;
+}*/
+
+/* Trailer chuẩn 400px chiều cao */
+/*.trailer-frame {
+    width: 100%;
+    height: 400px;
+}
+
+.icon-gold {
+    color: #FFD700;
+    margin-right: 6px;
+}*/
+
+/* CSS cho phần đánh giá phim */
+/*.review-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.review-box {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.review-box .stars {
+    color: #FFD700;
+    margin-left: 10px;
+}
+
+.review-date {
+    font-size: 0.85rem;
+    color: #888;
+}*/
+
+/* Rating star input */
+/*.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+.rating-stars input {
+    display: none;
+}
+
+.rating-stars label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.rating-stars input:checked ~ label,
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: #FFD700;
+}
+
+.review-section, .recent-reviews {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.review-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.review-avatar, .reply-avatar {
+    width: 40px;*/ /* Thu nhỏ avatar giống Facebook */
+    /*height: 40px;
+    object-fit: cover;*/ /* Đảm bảo ảnh không bị méo */
+/*}
+
+.review-content, .reply-content {
+    flex-grow: 1;
+}
+
+.review-rating {
+    color: gold;
+    margin-right: 10px;
+}
+
+.replies {
+    border-left: 2px solid #e0e0e0;
+    padding-left: 20px;
+}
+
+.reply-form textarea {
+    resize: vertical;
+}
+
+.reply-link {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.reply-link:hover {
+    text-decoration: underline;
+}
+
+.cancel-reply {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.cancel-reply:hover {
+    text-decoration: underline;
+}
+
+.star-rating {
+    font-size: 2rem;
+    cursor: pointer;
+    color: gray;
+}
+
+.star:hover {
+    color: orange;
+}*/
+
+/* Responsive */
+/*@media (max-width: 768px) {
+    .booking-button {
+        font-size: 1.5rem;
+        padding: 15px 0;
+    }
+    .trailer-frame {
+        height: 250px;
+    }
+    .review-avatar, .reply-avatar {
+        width: 32px;
+        height: 32px;
+    }
+    .reply-link, .cancel-reply {
+        font-size: 0.8rem;
+    }
+}*/
+
+
+/* Tổng container căn đều chiều cao */
+.row {
+    align-items: stretch;
+}
+
+/* Poster chiếm phần còn lại */
+.poster-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 8px;
 }
 
-.movie-details .btn-primary {
+/* Nút "Đặt vé" lớn, full width */
+.booking-button {
+    width: 100%;
+    font-size: 2rem;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #007bff;
     border: none;
+    color: white;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
 }
 
-.movie-details iframe {
-    max-width: 100%;
+    .booking-button:hover {
+        background-color: #0056b3;
+    }
+
+/* Trailer chuẩn 400px chiều cao */
+.trailer-frame {
+    width: 100%;
+    height: 400px;
+}
+
+.icon-gold {
+    color: #FFD700;
+    margin-right: 6px;
+}
+
+/* CSS cho phần đánh giá phim */
+.review-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.review-box {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+    .review-box .stars {
+        color: #FFD700;
+        margin-left: 10px;
+    }
+
+.review-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* Rating star input */
+.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+    .rating-stars input {
+        display: none;
+    }
+
+    .rating-stars label {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+        .rating-stars input:checked ~ label,
+        .rating-stars label:hover,
+        .rating-stars label:hover ~ label {
+            color: #FFD700;
+        }
+
+.review-section, .recent-reviews {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.review-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.review-avatar, .reply-avatar {
+    width: 40px; /* Thu nhỏ avatar giống Facebook */
+    height: 40px;
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+}
+
+.review-content, .reply-content {
+    flex-grow: 1;
+}
+
+.review-rating {
+    color: gold;
+    margin-right: 10px;
+}
+
+.replies {
+    border-left: 2px solid #e0e0e0;
+    padding-left: 20px;
+}
+
+.reply-form textarea {
+    resize: vertical;
+}
+
+.reply-link {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #007bff;
+}
+
+    .reply-link:hover {
+        text-decoration: underline;
+    }
+
+.cancel-reply {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+    .cancel-reply:hover {
+        text-decoration: underline;
+    }
+
+.star-rating {
+    font-size: 2rem;
+    cursor: pointer;
+    color: gray;
+}
+
+.star:hover {
+    color: orange;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .booking-button {
+        font-size: 1.5rem;
+        padding: 15px 0;
+    }
+
+    .trailer-frame {
+        height: 250px;
+    }
+
+    .review-avatar, .reply-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    .reply-link, .cancel-reply {
+        font-size: 0.8rem;
+    }
 }

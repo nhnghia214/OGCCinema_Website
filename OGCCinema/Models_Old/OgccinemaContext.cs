@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using OGCCinema.Models;
+using OGCCinema.Models_Old;
 
 namespace OGCCinema.Data
 {
@@ -37,6 +38,7 @@ namespace OGCCinema.Data
         public virtual DbSet<Tknhanvien> Tknhanviens { get; set; }
         public virtual DbSet<Trangthaighe> Trangthaighes { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
+        public virtual DbSet<Danhgiaphim> Danhgiaphims { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -436,6 +438,52 @@ namespace OGCCinema.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__VE__IDLichChieu__00200768");
             });
+
+            modelBuilder.Entity<Danhgiaphim>(entity =>
+            {
+                entity.ToTable("DANHGIAPHIM");
+
+                // Khóa chính
+                entity.HasKey(e => e.Id).HasName("PK_DANHGIAPHIM");
+
+                // Thuộc tính
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Idphim).HasColumnName("IDPhim");
+                entity.Property(e => e.IdkhachHang).HasColumnName("IDKhachHang");
+                entity.Property(e => e.ParentId).HasColumnName("ParentID");
+                entity.Property(e => e.NoiDung)
+                    .IsRequired()
+                    .HasMaxLength(1000); // Nếu có giới hạn độ dài, bạn có thể sửa lại số ký tự
+
+                entity.HasCheckConstraint("CK_DiemDanhGia", "[DiemDanhGia] BETWEEN 1 AND 10");
+
+                entity.Property(e => e.NgayTao)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("GETDATE()");
+
+                // Quan hệ với PHIM
+                entity.HasOne(d => d.Phim)
+                    .WithMany(p => p.Danhgiaphims)
+                    .HasForeignKey(d => d.Idphim)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK_DANHGIAPHIM_PHIM");
+
+                // Quan hệ với KHACHHANG
+                entity.HasOne(d => d.KhachHang)
+                    .WithMany(p => p.Danhgiaphims)
+                    .HasForeignKey(d => d.IdkhachHang)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK_DANHGIAPHIM_KHACHHANG");
+
+                // Quan hệ với cha (nếu là phản hồi của đánh giá khác)
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Replies)
+                    .HasForeignKey(d => d.ParentId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_DANHGIAPHIM_PARENT");
+            });
+
+
 
             OnModelCreatingPartial(modelBuilder);
         }
