@@ -283,16 +283,25 @@ namespace OGCCinema.Controllers
                 return Json(new { success = false, message = "Sai tài khoản hoặc mật khẩu" });
             }
 
+            // Lấy IdKhachHang từ bảng Khachhang
+            var khachHang = await _context.Khachhangs.FirstOrDefaultAsync(k => k.Username == user.Username);
+            int idKhachHang = khachHang?.Id ?? 0;
+
             // Lưu vào session
             HttpContext.Session.SetString("username", user.Username);
             HttpContext.Session.SetString("UserAuthenticated", "true");
+            HttpContext.Session.SetInt32("IdKhachHang", idKhachHang); // Lưu IdKhachHang
             HttpContext.Session.SetString("UserEmail", _context.Khachhangs
                 .Where(k => k.Username == user.Username)
                 .Select(k => k.Email)
                 .FirstOrDefault() ?? ""); // Lấy email từ Khachhang
 
             // Tạo cookie authentication
-            var claims = new[] { new Claim(ClaimTypes.Name, user.Username) };
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.NameIdentifier, idKhachHang.ToString()) // Thêm IdKhachHang
+            };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(principal);
