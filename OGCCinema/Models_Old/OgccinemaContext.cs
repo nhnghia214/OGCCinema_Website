@@ -39,6 +39,10 @@ namespace OGCCinema.Data
         public virtual DbSet<Trangthaighe> Trangthaighes { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }
         public virtual DbSet<Danhgiaphim> Danhgiaphims { get; set; }
+        public virtual DbSet<CaLam> CaLams { get; set; }
+        public virtual DbSet<LichLam> LichLams { get; set; }
+        public virtual DbSet<DanhGiaRap> DanhGiaRaps { get; set; }
+        public virtual DbSet<DanhGiaNhanVien> DanhGiaNhanViens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -481,6 +485,65 @@ namespace OGCCinema.Data
                     .HasForeignKey(d => d.ParentId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_DANHGIAPHIM_PARENT");
+            });
+
+            modelBuilder.Entity<CaLam>(entity =>
+            {
+                entity.ToTable("CaLam");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.TenCa).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.GioLam).IsRequired().HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<LichLam>(entity =>
+            {
+                entity.ToTable("LichLam");
+                entity.HasKey(e => e.Id);
+                entity.HasOne(e => e.NhanVien).WithMany().HasForeignKey(e => e.IdNhanVien);
+                entity.HasOne(e => e.CaLam).WithMany().HasForeignKey(e => e.IdCa);
+                entity.Property(e => e.NgayLam).IsRequired();
+                entity.HasIndex(e => new { e.IdNhanVien, e.IdCa, e.NgayLam }).IsUnique();
+            });
+
+            modelBuilder.Entity<DanhGiaRap>(entity =>
+            {
+                entity.ToTable("DanhGiaRap");
+                entity.HasKey(e => e.Id);
+                entity.HasOne(e => e.KhachHang).WithMany().HasForeignKey(e => e.IdKhachHang).OnDelete(DeleteBehavior.SetNull);
+                entity.Property(e => e.NoiDung).IsRequired().HasMaxLength(1000);
+            });
+
+            modelBuilder.Entity<DanhGiaNhanVien>(entity =>
+            {
+                entity.ToTable("DanhGiaNhanVien");
+                entity.HasKey(e => e.Id);
+
+                // Quan hệ với KHACHHANG
+                entity.HasOne(e => e.KhachHang)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdKhachHang)
+                    .OnDelete(DeleteBehavior.SetNull);
+
+                // Quan hệ với CaLam 
+                entity.HasOne(e => e.CaLam)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdCa)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .IsRequired(); // Đảm bảo IdCa không null
+
+                // Thuộc tính
+                entity.Property(e => e.IdCa)
+                    .IsRequired();
+
+                entity.Property(e => e.NgayLam)
+                    .IsRequired();
+
+                entity.Property(e => e.TenNhanVien)
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.NoiDung)
+                    .IsRequired()
+                    .HasMaxLength(1000);
             });
 
 
